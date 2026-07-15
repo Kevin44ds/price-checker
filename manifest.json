@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>TCI Price Check</title>
+<meta name="theme-color" content="#14171F">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">▮▮▯▮▮▯▯▮</span>
+      <span class="brand-name">TCI Price Check</span>
+    </div>
+    <button id="settingsBtn" class="icon-btn" aria-label="Settings" title="Settings">⚙</button>
+  </header>
+
+  <!-- ===== SCREEN: NO DATA YET ===== -->
+  <section id="screen-empty" class="screen">
+    <div class="empty-wrap">
+      <div class="empty-badge">no price list loaded</div>
+      <h1>Load your pricing file to start scanning</h1>
+      <p class="muted">Upload the Excel file with style number, barcode, and price. You'll only need to do this once — it stays on this phone until you replace it.</p>
+      <label class="upload-btn">
+        Choose Excel File
+        <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+      </label>
+      <p class="hint">.xlsx, .xls, or .csv</p>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN: COLUMN MAPPING ===== -->
+  <section id="screen-mapping" class="screen">
+    <div class="mapping-wrap">
+      <h1>Match your columns</h1>
+      <p class="muted">Tell us which column in your file is which. Preview of the first rows is below.</p>
+
+      <div class="map-row">
+        <label for="mapBarcode">Barcode column</label>
+        <select id="mapBarcode"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapStyle">Style number column</label>
+        <select id="mapStyle"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapPrice">Price column</label>
+        <select id="mapPrice"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapDesc">Description column <span class="optional">(optional)</span></label>
+        <select id="mapDesc"></select>
+      </div>
+
+      <div class="preview-wrap">
+        <table id="previewTable"><thead></thead><tbody></tbody></table>
+      </div>
+
+      <div class="mapping-actions">
+        <button id="cancelMapping" class="btn-ghost">Cancel</button>
+        <button id="confirmMapping" class="btn-primary">Save & Start Scanning</button>
+      </div>
+      <p id="mappingError" class="error-text" hidden></p>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN: MAIN SCAN ===== -->
+  <section id="screen-main" class="screen">
+    <div class="main-wrap">
+
+      <div class="stat-strip">
+        <span id="itemCount">0 items loaded</span>
+        <span id="updatedAt"></span>
+      </div>
+
+      <button id="scanBtn" class="scan-btn">
+        <span class="scan-btn-icon">⌗</span>
+        <span>Scan Barcode</span>
+      </button>
+
+      <div class="divider"><span>or search manually</span></div>
+
+      <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Type barcode or style number" inputmode="search" autocomplete="off">
+        <button id="searchBtn" class="icon-btn" aria-label="Search">→</button>
+      </div>
+
+      <!-- RESULT READOUT -->
+      <div id="result" class="result-card" hidden>
+        <div class="result-status" id="resultStatus"></div>
+        <div class="result-price" id="resultPrice"></div>
+        <div class="result-meta">
+          <div><span class="meta-label">Style</span><span id="resultStyle" class="meta-value"></span></div>
+          <div><span class="meta-label">Barcode</span><span id="resultBarcode" class="meta-value"></span></div>
+          <div id="resultDescRow"><span class="meta-label">Description</span><span id="resultDesc" class="meta-value"></span></div>
+        </div>
+      </div>
+
+      <div id="history" class="history"></div>
+    </div>
+  </section>
+
+  <!-- ===== CAMERA MODAL ===== -->
+  <div id="cameraModal" class="camera-modal" hidden>
+    <div class="camera-frame">
+      <video id="video" playsinline autoplay muted></video>
+      <div class="scan-window">
+        <div class="scan-line"></div>
+      </div>
+      <div class="camera-hint">Point at a barcode</div>
+    </div>
+    <button id="closeCameraBtn" class="btn-close-camera">Cancel</button>
+  </div>
+
+  <!-- ===== SETTINGS MODAL ===== -->
+  <div id="settingsModal" class="settings-modal" hidden>
+    <div class="settings-sheet">
+      <h2>Settings</h2>
+      <p class="muted" id="settingsInfo"></p>
+      <button id="replaceFileBtn" class="btn-ghost full">Replace pricing file</button>
+      <button id="clearDataBtn" class="btn-danger full">Clear all data</button>
+      <button id="closeSettingsBtn" class="btn-ghost full">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/umd/index.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
