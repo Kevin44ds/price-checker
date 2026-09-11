@@ -695,6 +695,9 @@ async function runCardOcr(photoDataUrl) {
   cardProcessingText.textContent = "Reading the card…";
   try {
     const result = await Tesseract.recognize(photoDataUrl, "eng", {
+      workerPath: "https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/worker.min.js",
+      corePath: "https://cdn.jsdelivr.net/npm/tesseract.js-core@4.0.4/tesseract-core.wasm.js",
+      langPath: "https://cdn.jsdelivr.net/npm/@tesseract.js-data/eng@1.0.0/4.0.0_best_int",
       logger: (m) => { if (m.status === "recognizing text") { cardProcessingText.textContent = `Reading the card… ${Math.round((m.progress || 0) * 100)}%`; } }
     });
     const text = result?.data?.text || "";
@@ -702,7 +705,8 @@ async function runCardOcr(photoDataUrl) {
     openCardReview(parsed, photoDataUrl);
   } catch (err) {
     console.error(err);
-    toast("Couldn't read the card. You can still enter details manually.");
+    const detail = err && err.message ? String(err.message).slice(0, 80) : "unknown error";
+    toast(`Couldn't read the card (${detail}). Enter details manually.`, 4000);
     openCardReview({ name: "", company: "", title: "", phone: "", email: "", notes: "" }, photoDataUrl);
   } finally { cardProcessing.hidden = true; }
 }
