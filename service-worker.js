@@ -1,4 +1,4 @@
-const CACHE_NAME = "tci-price-check-v1";
+const CACHE_NAME = "tci-price-check-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,7 +8,8 @@ const ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
-  "https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/umd/index.min.js"
+  "https://cdn.jsdelivr.net/npm/@zxing/library@0.20.0/umd/index.min.js",
+  "https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -34,7 +35,6 @@ self.addEventListener("fetch", (event) => {
       if (cached) return cached;
       return fetch(event.request)
         .then((response) => {
-          // opportunistically cache same-origin and CDN assets
           const copy = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
             try { cache.put(event.request, copy); } catch (e) {}

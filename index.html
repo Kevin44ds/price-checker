@@ -58,11 +58,11 @@
         <select id="mapStyle"></select>
       </div>
       <div class="map-row">
-        <label for="mapPrice">Price column</label>
+        <label for="mapPrice">Price column (售价)</label>
         <select id="mapPrice"></select>
       </div>
       <div class="map-row">
-        <label for="mapDesc">Description column <span class="optional">(optional)</span></label>
+        <label for="mapDesc">Description column (详细描述) <span class="optional">(optional)</span></label>
         <select id="mapDesc"></select>
       </div>
       <div class="map-row">
@@ -70,8 +70,28 @@
         <select id="mapSilver"></select>
       </div>
       <div class="map-row">
-        <label for="mapWeight">Weight column <span class="optional">(optional)</span></label>
+        <label for="mapWeight">Weight column (重量) <span class="optional">(optional)</span></label>
         <select id="mapWeight"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapDetails">Details column (尺寸) <span class="optional">(optional)</span></label>
+        <select id="mapDetails"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapPlating">Plating column (电镀) <span class="optional">(optional)</span></label>
+        <select id="mapPlating"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapMaterial">Material column (材质) <span class="optional">(optional)</span></label>
+        <select id="mapMaterial"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapColorEn">Color \u2014 English column (颜色) <span class="optional">(optional)</span></label>
+        <select id="mapColorEn"></select>
+      </div>
+      <div class="map-row">
+        <label for="mapColorCn">Color \u2014 Chinese column (颜色) <span class="optional">(optional)</span></label>
+        <select id="mapColorCn"></select>
       </div>
 
       <div class="preview-wrap">
@@ -112,9 +132,13 @@
         <div class="result-meta">
           <div><span class="meta-label">Style</span><span id="resultStyle" class="meta-value"></span></div>
           <div><span class="meta-label">Barcode</span><span id="resultBarcode" class="meta-value"></span></div>
+          <div id="resultColorRow"><span class="meta-label">Color (颜色)</span><span id="resultColor" class="meta-value"></span></div>
+          <div id="resultDetailsRow"><span class="meta-label">Details (尺寸)</span><span id="resultDetails" class="meta-value"></span></div>
+          <div id="resultPlatingRow"><span class="meta-label">Plating (电镀)</span><span id="resultPlating" class="meta-value"></span></div>
+          <div id="resultMaterialRow"><span class="meta-label">Material (材质)</span><span id="resultMaterial" class="meta-value"></span></div>
           <div id="resultDescRow"><span class="meta-label">Description</span><span id="resultDesc" class="meta-value"></span></div>
           <div id="resultSilverRow"><span class="meta-label">Silver Price</span><span id="resultSilver" class="meta-value"></span></div>
-          <div id="resultWeightRow"><span class="meta-label">Weight</span><span id="resultWeight" class="meta-value"></span></div>
+          <div id="resultWeightRow"><span class="meta-label">Weight (重量)</span><span id="resultWeight" class="meta-value"></span></div>
         </div>
       </div>
 
@@ -197,8 +221,7 @@
     <div class="camera-frame">
       <video id="cardVideo" playsinline autoplay muted></video>
       <canvas id="cardCanvas" hidden></canvas>
-      <div class="card-frame-guide"></div>
-      <div class="camera-hint" id="cardCameraHint">Frame the whole card, then tap Capture</div>
+      <div class="camera-hint" id="cardCameraHint">Fill the screen with the card, then tap Capture</div>
       <div class="zoom-hint" id="zoomHint" hidden></div>
     </div>
     <div class="card-capture-controls">

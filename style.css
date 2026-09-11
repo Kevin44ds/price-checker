@@ -241,16 +241,6 @@ select {
 .card-detail-name { font-size: 19px; font-weight: 700; margin-bottom: 2px; }
 .card-detail-company { color: var(--gold); font-size: 14px; margin-bottom: 14px; }
 
-.card-frame-guide {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 94%;
-  max-width: 560px;
-  aspect-ratio: 1.75 / 1;
-  border: 2px solid var(--gold);
-  border-radius: 14px;
-}
 .card-capture-controls {
   position: absolute;
   bottom: calc(30px + var(--safe-bottom));
@@ -379,8 +369,8 @@ select {
 }
 
 .result-meta { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
-.result-meta > div { display: flex; justify-content: space-between; font-size: 14px; }
-.meta-label { color: var(--text-muted); }
+.result-meta > div { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.meta-label { color: var(--text-muted); flex-shrink: 0; }
 .meta-value { font-family: var(--mono); text-align: right; }
 
 .history { margin-top: 22px; display: flex; flex-direction: column; gap: 8px; }
